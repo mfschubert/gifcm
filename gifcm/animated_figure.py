@@ -1,6 +1,6 @@
 """Module for creating animations from matplotlib figures."""
 
-from typing import Sequence
+from typing import List, Sequence, Tuple
 
 import io
 import matplotlib.figure as mpl_figure
@@ -10,7 +10,7 @@ from PIL import Image
 
 class AnimatedFigure:
     """Enables creation of a sequence of frames for an animation.
-    
+
     Example usage is as follows:
 
         animated_figure = AnimatedFigure(figure=plt.figure())
@@ -41,11 +41,12 @@ class AnimatedFigure:
         loop: int = 0,
     ) -> None:
         """Saves the frames to an animated gif.
-        
+
         Args:
-            gif_path:
-            duration:
-            loop:
+            gif_path: The path where the image will be saved.
+            duration: The duration of each frame, in milliseconds.
+            loop: Determines whether or how many times the animation should loop.
+                A value of `0` means the animation should loop infinitely.
         """
         _save_frames_to_gif(
             frames=self.frames,
@@ -85,7 +86,7 @@ def _save_figure_to_array(figure: mpl_figure.Figure) -> onp.ndarray:
     flat_array = onp.frombuffer(io_buffer.getvalue(), dtype=onp.uint8)
     io_buffer.close()
 
-    _, _, height, width = figure.bbox.bounds
+    _, _, height, width = figure.bbox.bounds  # type: ignore[misc]
     return flat_array.reshape((int(width), int(height), -1))
 
 
@@ -95,7 +96,15 @@ def _save_frames_to_gif(
     duration: int,
     loop: int,
 ) -> None:
-    """Saves frames to a gif image"""
+    """Saves frames to a gif image.
+
+    Args:
+        frames: The frames to be converted to a gif image.
+        gif_path: The path where the image will be saved.
+        duration: The duration of each frame, in milliseconds.
+        loop: Determines whether or how many times the animation should loop.
+            A value of `0` means the animation should loop infinitely.
+    """
     if len(frames) == 0:
         raise ValueError("At least one frame is required.")
     if frames[0].ndim != 3:
@@ -110,6 +119,7 @@ def _save_frames_to_gif(
     if not gif_path.endswith(".gif"):
         raise ValueError(f"Valid `gif_path` must end in '.gif', but got {gif_path}.")
 
+    frames, palette = _quantize_frames(frames)
     image, *images = [Image.fromarray(frame) for frame in frames]
     image.save(
         gif_path,
@@ -117,4 +127,16 @@ def _save_frames_to_gif(
         append_images=images,
         duration=duration,
         loop=loop,
+        palette=palette,
     )
+
+
+def _quantize_frames(
+    frames: Sequence[onp.ndarray],
+) -> Tuple[List[onp.ndarray], List[int]]:
+    """Returns quantized frames and the corresponding palette."""
+    merged = Image.fromarray(onp.concatenate(frames))
+    quantized = merged.quantize(colors=256, dither=0)
+    quantized_frames = onp.split(onp.asarray(quantized), len(frames))
+    palette: List[int] = quantized.getpalette()  # type: ignore[misc]
+    return list(quantized_frames), palette
