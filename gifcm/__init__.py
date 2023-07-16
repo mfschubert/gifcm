@@ -1,8 +1,7 @@
-"""gifcm - Gifcm is a context manager to simplify creation of animated gifs from
-a sequence of matplotlib figures."""
+"""gifcm - Simple animated gif for matplotlib."""
 
 __version__ = "0.1.0"
-__author__ = "Martin Schubert <mfschubert@gmail.com>"
+__author__ = "Martin F. Schubert <mfschubert@gmail.com>"
 
 __all__ = ["AnimatedFigure", "Frame"]
 
