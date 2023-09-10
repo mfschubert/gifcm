@@ -1,8 +1,8 @@
 """Module for creating animations from matplotlib figures."""
 
+import io
 from typing import List, Sequence, Tuple
 
-import io
 import matplotlib.figure as mpl_figure
 import numpy as onp
 from PIL import Image
