@@ -34,7 +34,7 @@ class TestGifCreation(unittest.TestCase):
         anim = gifcm.AnimatedFigure(fig)
         for frame_idx in range(num_frames):
             with anim.frame():
-                plt.plot(frame_idx, frame_idx, 'o')
+                plt.plot(frame_idx, frame_idx, "o")
                 plt.xlim([0, num_frames])
                 plt.ylim([0, num_frames])
                 plt.subplots_adjust(left=0, bottom=0, right=1, top=1)
