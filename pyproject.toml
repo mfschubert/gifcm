@@ -26,9 +26,6 @@ dependencies = [
 tests = ["parameterized", "pytest"]
 dev = ["black", "darglint", "gifcm[tests]", "isort", "mypy"]
 
-[tool.setuptools.packages]
-find = {}
-
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
