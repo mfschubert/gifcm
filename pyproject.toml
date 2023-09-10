@@ -1,0 +1,31 @@
+[project]
+
+name = "gifcm"
+version = "0.1.0"
+description = "Easy gif animation of matplotlib figures"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file = "LICENSE"}
+
+keywords = ["gif", "animation", "matplotlib"] 
+
+authors = [
+  {name = "Martin Schubert", email = "mfschubert@gmail.com"},
+]
+
+maintainers = [
+  {name = "Martin Schubert", email = "mfschubert@gmail.com"},
+]
+
+dependencies = [
+  "matplotlib",
+  "numpy",
+]
+
+[project.optional-dependencies]
+tests = ["parameterized", "pytest"]
+dev = ["black", "darglint", "gifcm[tests]", "isort", "mypy"]
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
