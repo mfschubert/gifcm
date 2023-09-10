@@ -17,7 +17,7 @@ class AnimatedFigure:
 
         for i in range(10):
             with animated_figure.frame(clear_figure=False):
-                plt.plot(i, j, 'o)
+                plt.plot(i, j, 'o')
 
         animated_figure.save_gif('my_animation.gif')
 
@@ -79,15 +79,10 @@ class Frame:
 
 def _save_figure_to_array(figure: mpl_figure.Figure) -> onp.ndarray:
     """Saves a figure to a numpy array."""
-    io_buffer = io.BytesIO()
-    figure.savefig(io_buffer, format="raw")
-
-    io_buffer.seek(0)
-    flat_array = onp.frombuffer(io_buffer.getvalue(), dtype=onp.uint8)
-    io_buffer.close()
-
-    _, _, height, width = figure.bbox.bounds  # type: ignore[misc]
-    return flat_array.reshape((int(width), int(height), -1))
+    with io.BytesIO() as bytes_io:
+        figure.savefig(bytes_io, bbox_inches="tight", pad_inches=0.0, format="png")
+        bytes_io.seek(0)
+        return onp.asarray(Image.open(bytes_io, mode="r"))
 
 
 def _save_frames_to_gif(
