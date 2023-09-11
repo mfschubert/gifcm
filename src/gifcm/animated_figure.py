@@ -28,7 +28,7 @@ class AnimatedFigure:
 
     def __init__(self, figure: mpl_figure.Figure) -> None:
         self.figure = figure
-        self.frames = []
+        self.frames: List[onp.ndarray] = []
 
     def frame(self, clear_figure: bool = True) -> "Frame":
         """Returns a new `Frame` context manager."""
@@ -115,7 +115,7 @@ def _save_frames_to_gif(
         raise ValueError(f"Valid `gif_path` must end in '.gif', but got {gif_path}.")
 
     frames, palette = _quantize_frames(frames)
-    image, *images = [Image.fromarray(frame) for frame in frames]
+    image, *images = (Image.fromarray(frame) for frame in frames)
     image.save(
         gif_path,
         save_all=True,
