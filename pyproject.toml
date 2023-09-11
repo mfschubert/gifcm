@@ -26,6 +26,7 @@ tests = [
     "pytest",
 ]
 dev = [
+    "darglint",
     "gifcm[tests]",
     "pre-commit",
 ]
