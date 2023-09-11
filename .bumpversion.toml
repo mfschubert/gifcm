@@ -1,4 +1,4 @@
-[bumpversion]
+[tool.bumpversion]
 current_version = "0.0.0"
 commit = true
 commit_args = "--no-verify"
@@ -12,11 +12,11 @@ serialize = [
 ]
 message = "Version updated from {current_version} to {new_version}"
 
-[[bumpversion.files]]
+[[tool.bumpversion.files]]
 filename = "pyproject.toml"
 
-[[bumpversion.files]]
+[[tool.bumpversion.files]]
 filename = "README.md"
 
-[[bumpversion.files]]
+[[tool.bumpversion.files]]
 filename = "src/gifcm/__init__.py"
