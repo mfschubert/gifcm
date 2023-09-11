@@ -1,12 +1,6 @@
 """gifcm - Easy gif animation of matplotlib figures."""
 
-from importlib import metadata
-
-try:
-    __version__ = metadata.version("gifcm")
-except metadata.PackageNotFoundError:
-    pass
-
+__version__ = "0.0.0"
 __author__ = "Martin Schubert <mfschubert@gmail.com>"
 __all__ = ["AnimatedFigure", "Frame"]
 

@@ -1,9 +1,9 @@
 [project]
 
 name = "gifcm"
+version = "0.0.0"
 description = "Easy gif animation of matplotlib figures"
 keywords = ["gif", "animation", "matplotlib"]
-version = "0.1.0"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {file = "LICENSE"}
@@ -26,6 +26,7 @@ tests = [
     "pytest",
 ]
 dev = [
+    "bump-my-version",
     "darglint",
     "gifcm[tests]",
     "pre-commit",
