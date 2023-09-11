@@ -1,6 +1,7 @@
 """Module for creating animations from matplotlib figures."""
 
 import io
+import types
 from typing import List, Sequence, Tuple
 
 import matplotlib.figure as mpl_figure
@@ -67,12 +68,17 @@ class Frame:
         self.animated_figure = animated_figure
         self.clear_figure = clear_figure
 
-    def __enter__(self):
+    def __enter__(self) -> "Frame":
         if self.clear_figure:
             self.animated_figure.figure.clf()
         return self
 
-    def __exit__(self, exception_type, exception_value, traceback):
+    def __exit__(
+        self,
+        exception_type: type[BaseException] | None,
+        exception_value: BaseException | None,
+        traceback: types.TracebackType,
+    ) -> None:
         frame = _save_figure_to_array(self.animated_figure.figure)
         self.animated_figure.frames.append(frame)
 
@@ -133,5 +139,5 @@ def _quantize_frames(
     merged = Image.fromarray(onp.concatenate(frames))
     quantized = merged.quantize(colors=256, dither=0)
     quantized_frames = onp.split(onp.asarray(quantized), len(frames))
-    palette: List[int] = quantized.getpalette()  # type: ignore[misc]
+    palette: List[int] = quantized.getpalette()
     return list(quantized_frames), palette
