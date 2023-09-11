@@ -1,8 +1,9 @@
 [project]
 
 name = "gifcm"
-version = "0.2.0"
 description = "Easy gif animation of matplotlib figures"
+dynamic = ["version"]  # Use setuptools_scm
+
 readme = "README.md"
 requires-python = ">=3.7"
 license = {file = "LICENSE"}
@@ -27,5 +28,7 @@ tests = ["parameterized", "pytest"]
 dev = ["black", "darglint", "gifcm[tests]", "isort", "mypy"]
 
 [build-system]
-requires = ["setuptools>=43.0.0", "wheel"]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setupttols_scm]
