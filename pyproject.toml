@@ -2,33 +2,34 @@
 
 name = "gifcm"
 description = "Easy gif animation of matplotlib figures"
-dynamic = ["version"]  # Use setuptools_scm
-
+keywords = ["gif", "animation", "matplotlib"]
+version = "0.1.0"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {file = "LICENSE"}
 
-keywords = ["gif", "animation", "matplotlib"] 
-
 authors = [
-  {name = "Martin Schubert", email = "mfschubert@gmail.com"},
+    {name = "Martin Schubert", email = "mfschubert@gmail.com"},
 ]
-
 maintainers = [
-  {name = "Martin Schubert", email = "mfschubert@gmail.com"},
+    {name = "Martin Schubert", email = "mfschubert@gmail.com"},
 ]
 
 dependencies = [
-  "matplotlib",
-  "numpy",
+    "matplotlib",
+    "numpy",
 ]
 
 [project.optional-dependencies]
-tests = ["parameterized", "pytest"]
-dev = ["black", "darglint", "gifcm[tests]", "isort", "mypy"]
+tests = [
+    "parameterized",
+    "pytest",
+]
+dev = [
+    "gifcm[tests]",
+    "pre-commit",
+]
 
 [build-system]
-requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2", "wheel"]
+requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
-
-[tool.setupttols_scm]
