@@ -12,11 +12,11 @@ serialize = [
 ]
 message = "Version updated from {current_version} to {new_version}"
 
-[bumpversion.files]
+[[bumpversion.files]]
 filename = "pyproject.toml"
 
-[bumpversion.files]
+[[bumpversion.files]]
 filename = "README.md"
 
-[bumpversion.files]
+[[bumpversion.files]]
 filename = "src/gifcm/__init__.py"
